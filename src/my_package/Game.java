@@ -42,6 +42,13 @@ public class Game extends JFrame{
 	/*
 	 * Constructor of Game class - sets up the game
 	 */
+	
+	/*
+	 * Board state 
+	 */
+	
+	String[][] boardState = new String[8][8];
+	
 	public Game(String p){
 		
         super("Reversi -" + p + " Player");
@@ -75,16 +82,18 @@ public class Game extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						if(isTurn){
-							b.setText("O");
-							opponent.opponentClicked(buttonArray.indexOf(b));
-							changeTurns();
-							opponent.changeTurns();
+							if(b.hasBeenPlayed){
+								System.out.println("This has already been played");
+							}else{
+								b.setText("O");
+								opponent.opponentClicked(buttonArray.indexOf(b));
+								changeTurns();
+								opponent.changeTurns();
+								b.hasBeenPlayed = true;
+							}
 						}else{
 							System.out.println("Not your turn");
 						}
-						
-						
-						
 					}
             	});
         		b.setName(i + ","+ j);
@@ -98,8 +107,6 @@ public class Game extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(true);
-        
-
 	}
 	
 	public void isPlayingWith(Game opponent){
@@ -107,7 +114,9 @@ public class Game extends JFrame{
 	}
 	
 	public void opponentClicked(int index){
-		buttonArray.get(index).setText("X");
+		GameButton b = (GameButton)buttonArray.get(index);
+		b.setText("X");
+		b.hasBeenPlayed = true;
 	}
 	
 	public void changeTurns(){
