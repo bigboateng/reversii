@@ -1,11 +1,9 @@
 package my_package;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JButton;
 
 public class GameButton extends JButton{
+	private static final long serialVersionUID = 1453504952420599700L;
 	public int x;
 	public int y;
 	public GameButton(String name){

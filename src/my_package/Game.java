@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Game extends JFrame{
+	
+	private static final long serialVersionUID = 1L;
 	
 	ArrayList<JButton> buttonArray = new ArrayList<>();
 	int x,y = 0;
