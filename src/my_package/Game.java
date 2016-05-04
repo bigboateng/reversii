@@ -21,11 +21,8 @@ public class Game extends JFrame{
 	public Game(String player){
         super("Reversi -" + player + " Player");
         setSize(320,320);
-        GridLayout experimentLayout = new GridLayout(8,8);
-        setLayout(experimentLayout);
-        for(int i=0;i<64;i++){
-        	
-        }
+        GridLayout gridLayout = new GridLayout(8,8);
+        setLayout(gridLayout);
         for(int i=0;i<8;i++){
         	for(int j=0;j<8;j++){
         		String e = Integer.toString(i);
@@ -38,7 +35,6 @@ public class Game extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						b.setText("O");
-						
 					}
             		
             	});
@@ -53,7 +49,6 @@ public class Game extends JFrame{
 	
 	public void isPlayingWith(Game opponent){
 		this.opponent = opponent;
-		setOnClickListener();
 	}
 	
 	public void opponentClicked(int x, int y){
@@ -63,24 +58,7 @@ public class Game extends JFrame{
 	public void somethingClicked(int i, int j){
 		this.opponent.opponentClicked(i,j);
 	}
-	
-	public void setOnClickListener(){
-		for(int i = 0; i < buttonArray.size(); i++){
-			final int x = i;
-			buttonArray.get(i).addActionListener(new ActionListener(){
 
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					GameButton b = (GameButton) buttonArray.get(x);
-					b.setText("O");
-					opponent.opponentClicked(b.x, b.y);
-				}
-				
-			});
-		}
-		
-	}
-	
 	
 
 

@@ -21,8 +21,8 @@ public class Board
 	{
         Game white = new Game("White");
         Game black = new Game("Black");
-//        white.isPlayingWith(black);
-//        white.isPlayingWith(white);
+        white.isPlayingWith(black);
+        white.isPlayingWith(white);
     }
 
 
