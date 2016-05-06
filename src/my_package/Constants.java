@@ -9,6 +9,9 @@ class Constants {
 	public static String NOT_TURN_WHITE = "White player - not your turn";
 	public static String TURN_BLACK = "Black player - click place to put piece";
 	public static String TURN_WHITE = "White player - click place to put piece";
+	public static int BLANK = 0;
+	public static int WHITE_STATE = 1;
+	public static int BLACK_STATE = 2;
 	public static String getTopLabel(String color){
 		return color == WHITE_PLAYER ? AI_TURN_BLACK:	AI_TURN_WHITE;
 	}

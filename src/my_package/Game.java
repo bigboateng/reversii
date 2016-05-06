@@ -1,6 +1,7 @@
 package my_package;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +22,7 @@ public class Game extends JFrame{
 	/*
 	 * Array to store buttons
 	 */
-	ArrayList<JButton> buttonArray = new ArrayList<>();
+	GameButton buttonArray[][] = new GameButton[8][8];
 	
 	/*
 	 * Opponent Object 
@@ -47,7 +48,8 @@ public class Game extends JFrame{
 	 * Board state 
 	 */
 	
-	String[][] boardState = new String[8][8];
+	int board[][] = new int[8][8];
+
 	
 	public Game(String p){
 		
@@ -76,7 +78,7 @@ public class Game extends JFrame{
         		String e = Integer.toString(i);
         		String x = Integer.toString(j);
         		final GameButton b = new GameButton(e +"," + x); 
-            	buttonArray.add(b);
+            	buttonArray[i][j] = b;
             	b.setCoordinate(i, j);
             	b.addActionListener(new ActionListener(){
 					@Override
@@ -85,11 +87,11 @@ public class Game extends JFrame{
 							if(b.hasBeenPlayed){
 								System.out.println("This has already been played");
 							}else{
-								b.setText("O");
-								opponent.opponentClicked(buttonArray.indexOf(b));
+								b.hasBeenPlayed = true;
+								createCircle(b.x, b.y, player);
+								opponent.opponentClicked(b.x, b.y);
 								changeTurns();
 								opponent.changeTurns();
-								b.hasBeenPlayed = true;
 							}
 						}else{
 							System.out.println("Not your turn");
@@ -101,22 +103,41 @@ public class Game extends JFrame{
         	}
         }
         
+        for (int i=0; i < 8; i++)
+        	   for (int j=0; j < 8; j++)
+        	      board[i][j] = Constants.BLANK;
+
+    	board[3][3] = Constants.WHITE_STATE;
+    	createCircle(3,3, Constants.WHITE_PLAYER);
+    	board[3][4] = Constants.BLACK_STATE;
+    	createCircle(3,4, Constants.BLACK_PLAYER);
+    	board[4][3] = Constants.BLACK_STATE;
+    	createCircle(4,3, Constants.BLACK_PLAYER);
+    	board[4][4] =  Constants.WHITE_STATE;
+    	createCircle(4,4, Constants.WHITE_PLAYER);
+      
+      buttonArray[3][3].hasBeenPlayed = true;
+      buttonArray[3][4].hasBeenPlayed = true;
+      buttonArray[4][3].hasBeenPlayed = true;
+      buttonArray[4][4].hasBeenPlayed = true;
         JButton button = new JButton(Constants.getTopLabel(player));
         add(button, BorderLayout.PAGE_END);
-        
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(true);
+        
+        
+
 	}
 	
 	public void isPlayingWith(Game opponent){
 		this.opponent = opponent;
+		
 	}
 	
-	public void opponentClicked(int index){
-		GameButton b = (GameButton)buttonArray.get(index);
-		b.setText("X");
-		b.hasBeenPlayed = true;
+	public void opponentClicked(int x, int y){
+		buttonArray[x][y].hasBeenPlayed = true;
+		createCircle(x, y, opponent.player);
 	}
 	
 	public void changeTurns(){
@@ -127,9 +148,13 @@ public class Game extends JFrame{
 			label.setText(label.getText() == Constants.TURN_BLACK? Constants.NOT_TURN_BLACK:Constants.TURN_BLACK);
 		}
 	}
-
-
 	
-
-
+	public void createCircle(int x, int y, String Who){
+		GameButton b = (GameButton)buttonArray[x][y];
+		if(Who == Constants.BLACK_PLAYER){
+			b.setColor(Color.BLACK);
+		}else{
+			b.setColor(Color.WHITE);
+		}
+	}
 }

@@ -17,10 +17,8 @@ public class GameButton extends JButton implements Runnable{
 	public Game whoPlayed = null;
 	public boolean hasBeenPlayed = false;
 	protected Color fillColor;
-	
 	public GameButton(String name){
 		super(name);
-		
 	}
 	
 	public void setCoordinate(int x, int y){
@@ -39,8 +37,11 @@ public class GameButton extends JButton implements Runnable{
 			g.fillRect(0, 0, 40, 40);
 			g.setColor(Color.GREEN);
 			g.fillRect(1,1,39,39);
-			g.setColor(Color.BLACK);
-			g.fillOval(10, 10, 20, 20);
+			g.setColor(fillColor);
+			if(hasBeenPlayed){
+				g.fillOval(10, 10, 20, 20);
+			}
+			
 	}
 	
 	public void redrawSelf(){
@@ -56,6 +57,7 @@ public class GameButton extends JButton implements Runnable{
 	
 	public void setColor(Color fillcolor){
 		fillColor = fillcolor;
+		redrawSelf();
 	}
 
 }
