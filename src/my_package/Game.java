@@ -50,7 +50,7 @@ public class Game extends JFrame{
 	
 	int board[][] = new int[8][8];
 
-	
+	int NOT_MY_STATE;
 	public Game(String p){
 		
         super("Reversi -" + p + " Player");
@@ -67,6 +67,9 @@ public class Game extends JFrame{
         }else{
         	label.setText(Constants.NOT_TURN_WHITE);
         }
+        
+        NOT_MY_STATE = player == Constants.BLACK_PLAYER ? Constants.WHITE_STATE:Constants.BLACK_STATE;
+        
         setSize(320,360);
         setLayout(new BorderLayout());
         add(label, BorderLayout.PAGE_START);
@@ -92,6 +95,11 @@ public class Game extends JFrame{
 								opponent.opponentClicked(b.x, b.y);
 								changeTurns();
 								opponent.changeTurns();
+								if(player == Constants.WHITE_PLAYER){
+									board[b.x][b.y] = Constants.WHITE_STATE;
+								}else{
+									board[b.x][b.y] = Constants.BLACK_STATE;
+								}
 							}
 						}else{
 							System.out.println("Not your turn");
@@ -153,5 +161,31 @@ public class Game extends JFrame{
 		}else{
 			b.setColor(Color.WHITE);
 		}
+	}
+	
+	public boolean isAValidMove(int x, int y){
+		//check top
+		boolean shouldContinue = true;
+		boolean found = false;
+		int h =0;
+		while(shouldContinue){
+			System.out.println("h=" + h);
+			if(board[x-h][y] == NOT_MY_STATE){
+				h++;
+				if(h == 7){
+					shouldContinue = false;
+					found = false;
+				}
+			}else{
+				if(h > 1){
+					shouldContinue = false;
+					found =  true;
+				}else{
+					shouldContinue = false;
+					found =  false;
+				}
+			}
+		}
+		return found;
 	}
 }
