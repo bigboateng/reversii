@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
@@ -51,6 +52,8 @@ public class Game extends JFrame{
 	int board[][] = new int[8][8];
 
 	int NOT_MY_STATE;
+	
+
 	public Game(String p){
 		
         super("Reversi -" + p + " Player");
