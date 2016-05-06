@@ -115,19 +115,15 @@ public class Game extends JFrame{
     	createCircle(4,3, Constants.BLACK_PLAYER);
     	board[4][4] =  Constants.WHITE_STATE;
     	createCircle(4,4, Constants.WHITE_PLAYER);
-      
-      buttonArray[3][3].hasBeenPlayed = true;
-      buttonArray[3][4].hasBeenPlayed = true;
-      buttonArray[4][3].hasBeenPlayed = true;
-      buttonArray[4][4].hasBeenPlayed = true;
+    	buttonArray[3][3].hasBeenPlayed = true;
+      	buttonArray[3][4].hasBeenPlayed = true;
+      	buttonArray[4][3].hasBeenPlayed = true;
+      	buttonArray[4][4].hasBeenPlayed = true;
         JButton button = new JButton(Constants.getTopLabel(player));
         add(button, BorderLayout.PAGE_END);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(true);
-        
-        
-
 	}
 	
 	public void isPlayingWith(Game opponent){
@@ -136,8 +132,9 @@ public class Game extends JFrame{
 	}
 	
 	public void opponentClicked(int x, int y){
-		buttonArray[x][y].hasBeenPlayed = true;
-		createCircle(x, y, opponent.player);
+		buttonArray[7-x][7-y].hasBeenPlayed = true;
+		createCircle(Math.abs(7-x), Math.abs(7-y), opponent.player);
+		System.out.println(Math.abs(7-x) + "," + Math.abs(7-y));
 	}
 	
 	public void changeTurns(){
